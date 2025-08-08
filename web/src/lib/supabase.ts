@@ -1,17 +1,11 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js';
 
-function getTrimmed(...keys: string[]) {
-    for (const k of keys) {
-        const v = process.env[k];
-        if (typeof v === "string" && v.trim()) return v.trim();
-    }
-    throw new Error(`Missing Supabase env. Tried: ${keys.join(", ")}`);
+// Use ONLY NEXT_PUBLIC_* for browser code.
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!url || !anon) {
+  throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY');
 }
 
-const SUPABASE_URL = getTrimmed("NEXT_PUBLIC_SUPABASE_URL", "SUPABASE_URL");
-const SUPABASE_ANON_KEY = getTrimmed(
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-    "SUPABASE_ANON_KEY"
-);
-
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+export const supabase = createClient(url.trim(), anon.trim());
