@@ -1,0 +1,33 @@
+# Node modules and lockfiles
+node_modules
+*.log
+*.tmp
+
+# Dist and build outputs
+dist
+build
+
+# Environment variables
+# Ignore runtime environment files but include examples
+.env
+.env.local
+.env.production
+!*.env.example
+!*.env.local.example
+
+# Expo
+.expo
+
+# Next.js build
+.next
+
+# Temporary files
+tmp
+temp
+
+# Dependency locks
+package-lock.json
+yarn.lock
+
+# OS-specific files
+.DS_Store
